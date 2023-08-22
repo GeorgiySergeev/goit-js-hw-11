@@ -1,14 +1,19 @@
+export { renderGallery };
 
-export { renderGallery }
-
-const gallery = document.querySelector('.gallery')
-const galleryEl = document.querySelector('.gallery .a')
+const gallery = document.querySelector('.gallery');
 
 function renderGallery(images) {
-  const markup = images
-    .map(image => {
-      const { id, largeImageURL, webformatURL, tags, likes, views, comments, downloads } = image;
-      return `
+  const markup = images.map(image => {
+    const {
+      largeImageURL,
+      webformatURL,
+      tags,
+      likes,
+      views,
+      comments,
+      downloads,
+    } = image;
+    return `
         <a class="card-link" href="${largeImageURL}">
         <div class="photo-card">
         <img class="card-img"
@@ -39,9 +44,8 @@ function renderGallery(images) {
         </div>
       </div> 
         </a>
-      `
-    })
-    
+      `;
+  });
 
-  gallery.insertAdjacentHTML('beforeend', markup.join(''))
+  gallery.insertAdjacentHTML('beforeend', markup.join(''));
 }
