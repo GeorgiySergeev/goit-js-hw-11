@@ -13,7 +13,6 @@ import { btnUp } from './btnUp';
 const lightbox = new SimpleLightbox('.gallery a');
 const PER_PAGE = 40;
 
-
 const refs = {
   gallery: document.getElementById('js-gallery'),
   formEl: document.getElementById('search-form'),
@@ -23,7 +22,7 @@ const refs = {
 };
 
 refs.formEl.addEventListener('submit', onSearch);
-window.addEventListener('scroll', throttle(onScroll, 0));
+window.addEventListener('scroll', throttle(onScroll, 500));
 //================================scroll
 
 //==========================================================
@@ -38,7 +37,7 @@ function onSearch(evt) {
   } else {
     fatchHits(refs.query, refs.page)
       .then(data => {
-         totalHits = data.totalHits;
+        totalHits = data.totalHits;
 
         if (data.hits.length === 0) {
           noImagesFound();
@@ -58,17 +57,24 @@ function loadMoreImages() {
   fatchHits(refs.query, refs.page)
     .then(data => {
       renderGallery(data.hits);
-      console.log(data);
       lightbox.refresh();
     })
     .catch(Error.message);
 
   const totalPages = Math.ceil(totalHits / PER_PAGE);
-  console.log(refs.page, totalHits);
+
   if (refs.page > totalPages) {
     endOfCollection();
   }
-}
+};
+function onScroll(e) {
+  if (
+    window.scrollY + window.innerHeight >=
+    document.documentElement.scrollHeight
+  ) {
+    loadMoreImages();
+  }
+};
 btnUp.addEventListener();
 //===================================
 function clearGallery() {
@@ -96,43 +102,6 @@ function endOfCollection() {
   );
 }
 
-//============================================ infinity scroll
 
-function onScroll(e) {
-  if (
-    window.scrollY + window.innerHeight >=
-    document.documentElement.scrollHeight
-  ) {
-    loadMoreImages();
-  }
 
-  const scrolled = window.pageYOffset;
-  const coords = document.documentElement.clientHeight;
 
-  // if (scrolled > coords) {
-  //   refs.btnToTop.classList.remove('is-hidden')
-  // }
-  // if (scrolled < coords) {
-  //   refs.btnToTop.classList.add('is-hidden')
-  // }
-}
-
-//===================
-
-// window.onscroll = function() {
-//   let scrollElem = document.getElementById("scrollToTop");
-//   if (document.documentElement.scrollTop > document.documentElement.clientHeight) {
-//       scrollElem.style.opacity = "1";
-//   } else {
-//       scrollElem.style.opacity = "0";
-//   }
-// }
-
-// let timeOut;
-// function goUp() {
-//     var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
-//     if(top > 0) {
-//         window.scrollBy(0,-100);
-//         timeOut = setTimeout('goUp()',20);
-//     } else clearTimeout(timeOut);
-// }
