@@ -9,6 +9,8 @@ const btnUp = {
   addEventListener() {
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
+      //console.log(scrollY);
+      //console.log(window.scrollY);
 
       scrollY > 400 ? this.show() : this.hide();
     });
@@ -23,5 +25,3 @@ const btnUp = {
   },
 };
 export { btnUp };
-
-

@@ -15,6 +15,7 @@ const PER_PAGE = 40;
 
 const refs = {
   gallery: document.getElementById('js-gallery'),
+  titleEl: document.querySelector('.title'),
   formEl: document.getElementById('search-form'),
   btnToTop: document.querySelector('.button-to-top'),
   query: '',
@@ -34,7 +35,11 @@ function onSearch(evt) {
 
   if (refs.query === '') {
     errorSearchQuery();
+    return;
   } else {
+    refs.titleEl.style.fontSize = '38px';
+    refs.titleEl.style.marginTop = '38px';
+
     fatchHits(refs.query, refs.page)
       .then(data => {
         totalHits = data.totalHits;
@@ -48,25 +53,22 @@ function onSearch(evt) {
 
         lightbox.refresh();
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error.message));
   }
 }
 //===================================
 function loadMoreImages() {
   refs.page += 1;
+
   fatchHits(refs.query, refs.page)
     .then(data => {
       renderGallery(data.hits);
       lightbox.refresh();
     })
-    .catch(Error.message);
-
-  const totalPages = Math.ceil(totalHits / PER_PAGE);
-
-  if (refs.page > totalPages) {
-    endOfCollection();
-  }
-};
+    .catch(error => {
+      endOfCollection();
+    });
+}
 function onScroll(e) {
   if (
     window.scrollY + window.innerHeight >=
@@ -74,7 +76,7 @@ function onScroll(e) {
   ) {
     loadMoreImages();
   }
-};
+}
 btnUp.addEventListener();
 //===================================
 function clearGallery() {
@@ -102,6 +104,8 @@ function endOfCollection() {
   );
 }
 
+function gohome() {
+  window.location = '../index.html';
+}
 
-
-
+export { endOfCollection };

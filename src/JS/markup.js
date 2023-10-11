@@ -1,8 +1,9 @@
 export { renderGallery };
 
-const gallery = document.querySelector('.gallery');
+
 
 function renderGallery(images) {
+  const gallery = document.querySelector('.gallery');
   const markup = images.map(image => {
     const {
       largeImageURL,

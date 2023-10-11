@@ -1,4 +1,6 @@
 import axios from 'axios';
+//import Notiflix from 'notiflix';
+//import { endOfCollection } from './common-js';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
@@ -20,7 +22,7 @@ async function fatchHits(searchQuery, page) {
 
     return hitsData;
   } catch (error) {
-    console.log(error.message);
+    return;
   }
 }
 

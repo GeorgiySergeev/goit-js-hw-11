@@ -4,15 +4,33 @@
   box-sizing: border-box;
 }
 
+// body {
+//   background: url(imgs/background_page.png) no-repeat;
+//   background-position: 50% 50%;
+//   background-size: cover;
+//   background-attachment: fixed
+// }
+
 body {
-  background-color: rgb(223, 245, 245);
+  background-image: linear-gradient(
+      rgba(116, 117, 141, 0.3),
+      rgba(136, 136, 230, 0.4)
+    ),
+    url(/src/images/mesh-1430107_1920.png);
+  background-repeat: no-repeat;
+
+  background-position: 50% 50%;
+  background-size: cover;
+  background-attachment: fixed;
+
+  //background-color: rgb(223, 245, 245);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1em;
-  line-height: 1.5;
-  color: black;
+
+  color: rgb(37, 37, 37);
   margin: 0 0 50px 0;
 }
 
@@ -27,7 +45,6 @@ p {
 .container {
   padding-left: 15px;
   padding-right: 15px;
- 
 }
 .logo {
   position: absolute;
@@ -43,16 +60,14 @@ p {
 
   align-items: center;
   background-color: #09c2f0;
-
- 
 }
 .title {
+  margin-top: 15%;
   text-align: center;
-  font-size: 38px;
-  line-height: 18px;
-  letter-spacing: 0.18em;
-  color: #434455;
-  
+
+  font-size: 120px;
+
+  color: #2c2c2c;
 }
 .search-form {
   width: 100%;
@@ -63,11 +78,11 @@ p {
 
 .search-form input {
   width: 30%;
-  border-radius: 4px;
+  border-radius: 20px;
   border: none;
   outline: none;
   background-color: #dce9f5;
-  padding: 8px 10px;
+  padding: 8px 20px;
   font: inherit;
 }
 
@@ -78,10 +93,9 @@ p {
   color: aliceblue;
   font-weight: 500;
 
-  border-radius: 4px;
+  border-radius: 20px;
   cursor: pointer;
 }
-
 
 .search-form button:hover,
 .search-form button:focus {
@@ -108,15 +122,16 @@ p {
   object-fit: cover;
 }
 
-
 .footer {
+  text-align: center;
+  padding: 10px 0px;
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 40px;
   bottom: 0px;
   left: 0px;
-  background-color: #6ca1f0;
+  background-color: #09c2f0;
 }
 
 .gallery {
@@ -126,6 +141,8 @@ p {
 
   width: 80%;
   margin: 0 auto;
+
+  padding-bottom: 50px;
 
   column-gap: 24px;
   row-gap: 24px;
@@ -139,7 +156,6 @@ p {
   padding: 10px;
   justify-content: space-around;
 }
-
 
 .info-item {
   display: flex;
@@ -168,12 +184,12 @@ p {
   z-index: 999;
   background-color: #673ab7;
   right: 0px;
-  bottom: 0px;
+  bottom: 40px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   cursor: pointer;
   display: flex;
-  
+
   align-items: center;
   justify-content: center;
   width: 50px;
@@ -195,6 +211,6 @@ p {
 
 @media (hover: hover) and (pointer: fine) {
   .btn-up:hover {
-    background-color: #512da8; 
+    background-color: #512da8;
   }
 }

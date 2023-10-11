@@ -1,48 +1,46 @@
+// // делаю класс для работы с API pixabay.
+// // будет фетчить имеджи и работать с запросом формы, уваличивать пейдж на один, ресет Пейдж
 
+// export default class ImagesApiServise {
+//   constructor() {
+//     this.searchQuery = '';
+//     this.page = 1;
+//   }
 
-// делаю класс для работы с API pixabay.
-// будет фетчить имеджи и работать с запросом формы, уваличивать пейдж на один, ресет Пейдж
+//   async fatchHits(query, page = 1) {
+//     const params = {
+//       key: '38366694-9ace1c8eba851c65d09ce7fab',
+//       q: `${this.searchQuery}`,
+//       image_type: 'photo',
+//       orientation: 'horizontal',
+//       safesearch: true,
+//       per_page: 40,
+//       page: `${this.page}`,
+//       lang: 'en',
+//     };
 
-export default class ImagesApiServise {
-  constructor() {
-    this.searchQuery = '';
-    this.page = 1;
-  }
+//     try {
+//       const response = await axios.get('', { params });
+//       const hitsArray = response.data.hits;
 
-  async fatchHits(query, page = 1) {
-    const params = {
-      key: '38366694-9ace1c8eba851c65d09ce7fab',
-      q: `${this.searchQuery}`,
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: true,
-      per_page: 40,
-      page: `${this.page}`,
-      lang: 'en',
-    };
+//       this.page += 1;
 
-    try {
-      const response = await axios.get('', { params });
-      const hitsArray = response.data.hits;
+//       return hitsArray; //возврат данных
+//     } catch (error) {
+//       console.log('ERROR');
+//     }
+//   }
 
-      this.page += 1;
+//   resetPage() {
+//     this.page = 1;
+//   }
 
-      return hitsArray; //возврат данных
-    } catch (error) {
-      console.log('ERROR');
-    }
-  }
+//   get query() {
+//     return this.searchQuery;
+//   }
+//   set query(newQuery) {
+//     this.searchQuery = newQuery;
+//   }
+// }
 
-  resetPage() {
-    this.page = 1;
-  }
-
-  get query() {
-    return this.searchQuery;
-  }
-  set query(newQuery) {
-    this.searchQuery = newQuery;
-  }
-}
-
-//export { fatchHits };
+// //export { fatchHits };
