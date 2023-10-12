@@ -24,7 +24,6 @@ const refs = {
 
 refs.formEl.addEventListener('submit', onSearch);
 window.addEventListener('scroll', throttle(onScroll, 500));
-//================================scroll
 
 //==========================================================
 function onSearch(evt) {
@@ -42,16 +41,13 @@ function onSearch(evt) {
 
     fatchHits(refs.query, refs.page)
       .then(data => {
-        //totalHits = data.totalHits;
-        console.log(data);
-        //console.log(totalHits);
+        const arrOfImages = data.hits;
 
-        if (data.hits.length === 0) {
+        if (arrOfImages.length === 0) {
           noImagesFound();
-          return;
         }
-        //Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
-        renderGallery(data.hits);
+        Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
+        renderGallery(arrOfImages);
 
         lightbox.refresh();
       })
@@ -71,7 +67,7 @@ function loadMoreImages() {
       endOfCollection();
     });
 }
-function onScroll(e) {
+function onScroll() {
   if (
     window.scrollY + window.innerHeight >=
     document.documentElement.scrollHeight
