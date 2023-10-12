@@ -1,12 +1,10 @@
 import axios from 'axios';
-//import Notiflix from 'notiflix';
-//import { endOfCollection } from './common-js';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 async function fatchHits(searchQuery, page) {
   const params = {
-    key: '38366694-9ace1c8eba851c65d09ce7fab',
+    key: '39996827-e9c56c5fbc7ab9c1bd6fd11c1', // my old key  '38366694-9ace1c8eba851c65d09ce7fab',
     q: `${searchQuery}`,
     image_type: 'photo',
     orientation: 'horizontal',

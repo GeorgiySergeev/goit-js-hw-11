@@ -103,9 +103,3 @@ function endOfCollection() {
     "We're sorry, but you've reached the end of search results."
   );
 }
-
-function gohome() {
-  window.location = '../index.html';
-}
-
-export { endOfCollection };
