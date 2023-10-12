@@ -43,6 +43,7 @@ function onSearch(evt) {
     fatchHits(refs.query, refs.page)
       .then(data => {
         totalHits = data.totalHits;
+        console.log(data);
         console.log(totalHits);
 
         if (data.hits.length === 0) {
