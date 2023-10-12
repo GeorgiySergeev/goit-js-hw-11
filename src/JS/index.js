@@ -42,20 +42,20 @@ function onSearch(evt) {
 
     fatchHits(refs.query, refs.page)
       .then(data => {
-        totalHits = data.totalHits;
+        //totalHits = data.totalHits;
         console.log(data);
-        console.log(totalHits);
+        //console.log(totalHits);
 
         if (data.hits.length === 0) {
           noImagesFound();
           return;
         }
-        Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
+        //Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
         renderGallery(data.hits);
 
         lightbox.refresh();
       })
-      .catch(error => console.log(error.message));
+      .catch(error => console.log(error));
   }
 }
 //===================================
