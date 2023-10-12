@@ -4,7 +4,7 @@ axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 async function fatchHits(searchQuery, page) {
   const params = {
-    key: '39996827-e9c56c5fbc7ab9c1bd6fd11c1', ///// my old key  '38366694-9ace1c8eba851c65d09ce7fab',
+    key: '38366694-9ace1c8eba851c65d09ce7fab', // my old key  '38366694-9ace1c8eba851c65d09ce7fab', //new key '39996827-e9c56c5fbc7ab9c1bd6fd11c1'
     q: `${searchQuery}`,
     image_type: 'photo',
     orientation: 'horizontal',
