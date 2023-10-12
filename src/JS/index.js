@@ -1,73 +1,105 @@
 import Notiflix from 'notiflix';
-
 import SimpleLightbox from 'simplelightbox';
-
 import 'simplelightbox/dist/simple-lightbox.min.css';
-//--------------------------------
+
+import throttle from 'lodash.throttle';
+
+import { fatchHits } from './api';
 import { renderGallery } from './markup';
-import ImagesApiServise from './image-api';
+import { btnUp } from './button-up';
+
+//============== refs & const ==========================
 
 const lightbox = new SimpleLightbox('.gallery a');
-
-const imageApiServise = new ImagesApiServise();
+const PER_PAGE = 40;
 
 const refs = {
   gallery: document.getElementById('js-gallery'),
+  titleEl: document.querySelector('.title'),
   formEl: document.getElementById('search-form'),
-  loadMoreBtn: document.getElementById('js-load-more'),
+  btnToTop: document.querySelector('.button-to-top'),
+  query: '',
+  page: 1,
 };
 
 refs.formEl.addEventListener('submit', onSearch);
-refs.loadMoreBtn.addEventListener('click', onLoadMoreBtn);
+window.addEventListener('scroll', throttle(onScroll, 500));
+//================================scroll
 
-// hide load more btn
-
+//==========================================================
 function onSearch(evt) {
   evt.preventDefault();
-  //Notiflix.Loading.standard('Loading...', 1000);
   clearGallery();
-  
-  refs.loadMoreBtn.classList.add('is-hidden');
-  imageApiServise.resetPage();
-  imageApiServise.query = evt.target[0].value; //можно так достучаться: evt.currentTarget.elements.searchQuery.value
 
-  if (imageApiServise.query === '') {
-    Notiflix.Report.failure('Error!', 'Please, enter search query! ', 'Close');
+  refs.query = evt.target[0].value;
+
+  if (refs.query === '') {
+    errorSearchQuery();
+    return;
   } else {
-    imageApiServise.fatchHits().then(arr => {
-      if (arr.length === 0) {
-        Notiflix.Report.failure(
-          'Error!',
-          'Sorry, there are no images matching your search query. Please try again...',
-          'Ok'
-        );
-        return;
-      }
+    refs.titleEl.style.fontSize = '38px';
+    refs.titleEl.style.marginTop = '38px';
 
-      renderGallery(arr);
-      refs.loadMoreBtn.classList.replace('is-hidden', 'load-more');
-      lightbox.refresh();
-    });
+    fatchHits(refs.query, refs.page)
+      .then(data => {
+        totalHits = data.totalHits;
+
+        if (data.hits.length === 0) {
+          noImagesFound();
+          return;
+        }
+        Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
+        renderGallery(data.hits);
+
+        lightbox.refresh();
+      })
+      .catch(error => console.log(error.message));
   }
-};
+}
+//===================================
+function loadMoreImages() {
+  refs.page += 1;
 
-function onLoadMoreBtn() {
-    
-  imageApiServise.fatchHits().then(arr => {
-    
-    console.log(arr);
-    renderGallery(arr);
-    lightbox.refresh();
-    
-  });
-  
-};
-
+  fatchHits(refs.query, refs.page)
+    .then(data => {
+      renderGallery(data.hits);
+      lightbox.refresh();
+    })
+    .catch(error => {
+      endOfCollection();
+    });
+}
+function onScroll(e) {
+  if (
+    window.scrollY + window.innerHeight >=
+    document.documentElement.scrollHeight
+  ) {
+    loadMoreImages();
+  }
+}
+btnUp.addEventListener();
+//===================================
 function clearGallery() {
   refs.gallery.innerHTML = '';
-};
+}
 
+function errorSearchQuery() {
+  return Notiflix.Report.failure(
+    'Error!',
+    'Please, enter search query! ',
+    'Close'
+  );
+}
+function noImagesFound() {
+  Notiflix.Report.failure(
+    'Error!',
+    'Sorry, there are no images matching your search query. Please try again...',
+    'Ok'
+  );
+}
 
-
-
-console.log(imageApiServise)
+function endOfCollection() {
+  Notiflix.Report.failure(
+    "We're sorry, but you've reached the end of search results."
+  );
+}
