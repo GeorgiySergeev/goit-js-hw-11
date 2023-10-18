@@ -17,7 +17,7 @@ body {
   /*linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
 
   /*.color-change-5x{-webkit-animation:color-change-5x 10s ease-in-out infinite alternate-reverse both;animation:color-change-5x 10s ease-in-out infinite alternate-reverse both}*/
-  background-size: 400% 400%;
+  background-size: 500% 1000%;
   animation: gradientBG 15s ease infinite;
 
   // background-image: linear-gradient(
@@ -28,7 +28,7 @@ body {
   // background-repeat: no-repeat;
 
   // background-position: 50% 50%;
-  // background-size: cover;
+  //background-size: cover;
   // background-attachment: fixed;
 
   //background-color: rgb(223, 245, 245);
@@ -59,6 +59,9 @@ p {
   top: 10px;
   width: 50px;
   height: 50px;
+}
+.logo:hover {
+  scale: 102%;
 }
 .header {
   padding-top: 15px;
