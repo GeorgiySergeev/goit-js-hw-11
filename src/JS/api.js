@@ -19,7 +19,6 @@ async function fatchHits(searchQuery, page) {
   try {
     const response = await axios.get('', { params });
     const hitsData = response.data;
-    console.log(hitsData);
 
     return hitsData;
   } catch (error) {

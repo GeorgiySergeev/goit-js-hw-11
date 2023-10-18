@@ -1,4 +1,4 @@
-import Notiflix from 'notiflix';
+import Notiflix, { Loading } from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import throttle from 'lodash.throttle';
@@ -11,6 +11,7 @@ import { btnUp } from './button-up';
 
 const lightbox = new SimpleLightbox('.gallery a');
 const PER_PAGE = 40;
+let counter = PER_PAGE;
 
 const refs = {
   gallery: document.getElementById('js-gallery'),
@@ -23,6 +24,7 @@ const refs = {
 
 refs.formEl.addEventListener('submit', onSearch);
 window.addEventListener('scroll', throttle(onScroll, 500));
+btnUp.addEventListener();
 
 //==========================================================
 function onSearch(evt) {
@@ -40,6 +42,7 @@ function onSearch(evt) {
 
     fatchHits(refs.query, refs.page)
       .then(data => {
+        //console.log(counter);
         const arrOfImages = data.hits;
 
         if (arrOfImages.length === 0) {
@@ -50,15 +53,23 @@ function onSearch(evt) {
 
         lightbox.refresh();
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error.message));
   }
 }
 //===================================
 function loadMoreImages() {
+  Notiflix.Loading.remove();
+
   refs.page += 1;
 
   fatchHits(refs.query, refs.page)
     .then(data => {
+      const state = counterFnc(data.totalHits, counter);
+      counter += PER_PAGE;
+      if (!state) {
+        endOfCollection();
+        return;
+      }
       renderGallery(data.hits);
       lightbox.refresh();
     })
@@ -66,15 +77,21 @@ function loadMoreImages() {
       endOfCollection();
     });
 }
+
+function counterFnc(totalHits, counter) {
+  return counter < totalHits;
+}
+
 function onScroll() {
   if (
     window.scrollY + window.innerHeight >=
     document.documentElement.scrollHeight
   ) {
+    onLoading();
     loadMoreImages();
   }
 }
-btnUp.addEventListener();
+
 //===================================
 function clearGallery() {
   refs.gallery.innerHTML = '';
@@ -99,4 +116,9 @@ function endOfCollection() {
   Notiflix.Report.failure(
     "We're sorry, but you've reached the end of search results."
   );
+}
+function onLoading() {
+  Notiflix.Loading.circle('Loading picture...', {
+    backgroundColor: 'transparent',
+  });
 }
