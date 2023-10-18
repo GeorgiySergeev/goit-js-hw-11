@@ -1,7 +1,5 @@
 export { renderGallery };
 
-
-
 function renderGallery(images) {
   const gallery = document.querySelector('.gallery');
   const markup = images.map(image => {
@@ -17,6 +15,7 @@ function renderGallery(images) {
     return `
         <a class="card-link" href="${largeImageURL}">
         <div class="photo-card">
+        <div class="photo__card-inner">
         <img class="card-img"
           src="${webformatURL}"
           width="340px"
@@ -24,7 +23,8 @@ function renderGallery(images) {
           
           alt="${tags}"
           loading="lazy"
-        />
+        /></div>
+        
         <div class="info">
           <p class="info-item">
             <b>Likes</b>
