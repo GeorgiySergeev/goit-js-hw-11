@@ -12,16 +12,24 @@
 // }
 
 body {
-  background-image: linear-gradient(
-      rgba(116, 117, 141, 0.3),
-      rgba(136, 136, 230, 0.4)
-    ),
-    url(/src/images/mesh-1430107_1920.jpg);
-  background-repeat: no-repeat;
+  color: #ffffff;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  /*linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
 
-  background-position: 50% 50%;
-  background-size: cover;
-  background-attachment: fixed;
+  /*.color-change-5x{-webkit-animation:color-change-5x 10s ease-in-out infinite alternate-reverse both;animation:color-change-5x 10s ease-in-out infinite alternate-reverse both}*/
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+
+  // background-image: linear-gradient(
+  //     rgba(116, 117, 141, 0.3),
+  //     rgba(136, 136, 230, 0.4)
+  //   ),
+  //   url(/src/images/mesh-1430107_1920.jpg);
+  // background-repeat: no-repeat;
+
+  // background-position: 50% 50%;
+  // background-size: cover;
+  // background-attachment: fixed;
 
   //background-color: rgb(223, 245, 245);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -248,5 +256,17 @@ input:hover {
   30% {
     letter-spacing: 12px;
     margin-bottom: -40px;
+  }
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

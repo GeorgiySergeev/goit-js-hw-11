@@ -1,5 +1,3 @@
-export { renderGallery };
-
 function renderGallery(images) {
   const gallery = document.querySelector('.gallery');
   const markup = images.map(image => {
@@ -50,3 +48,4 @@ function renderGallery(images) {
 
   gallery.insertAdjacentHTML('beforeend', markup.join(''));
 }
+export { renderGallery };
