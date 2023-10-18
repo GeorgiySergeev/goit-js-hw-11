@@ -138,10 +138,17 @@ input:hover {
 .card-img:hover {
   scale: 103%;
 }
+.footer__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  //padding: 10px 0px;
+}
 
 .footer {
   text-align: center;
-  padding: 10px 0px;
+  padding-top: 5px;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -149,7 +156,7 @@ input:hover {
   bottom: 0px;
   left: 0px;
   background-color: #09c2f0;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .gallery {
