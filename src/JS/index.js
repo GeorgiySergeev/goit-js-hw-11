@@ -7,7 +7,7 @@ import { fatchHits } from './api';
 import { renderGallery } from './markup';
 import { btnUp } from './button-up';
 
-//============== refs & const ==========================
+//!  refs & const
 
 const lightbox = new SimpleLightbox('.gallery a');
 const PER_PAGE = 40;
@@ -26,7 +26,7 @@ refs.formEl.addEventListener('submit', onSearch);
 window.addEventListener('scroll', throttle(onScroll, 500));
 btnUp.addEventListener();
 
-//==========================================================
+//!  Loading, scrolling
 function onSearch(evt) {
   evt.preventDefault();
   clearGallery();
@@ -37,8 +37,7 @@ function onSearch(evt) {
     errorSearchQuery();
     return;
   } else {
-    refs.titleEl.style.fontSize = '38px';
-    refs.titleEl.style.marginTop = '38px';
+    title();
 
     fatchHits(refs.query, refs.page)
       .then(data => {
@@ -59,7 +58,7 @@ function onSearch(evt) {
       });
   }
 }
-//===================================
+
 function loadMoreImages() {
   Notiflix.Loading.remove();
 
@@ -80,10 +79,6 @@ function loadMoreImages() {
     });
 }
 
-function counterFnc(totalHits, counter) {
-  return counter < totalHits;
-}
-
 function onScroll() {
   if (
     window.scrollY + window.innerHeight >=
@@ -93,13 +88,24 @@ function onScroll() {
     loadMoreImages();
   }
 }
-function checkIfEndOfPage() {
-  return (
-    window.innerHeight + window.pageYOffset >=
-    document.documentElement.scrollHeight
-  );
+// function checkIfEndOfPage() {
+//   return (
+//     window.innerHeight + window.pageYOffset >=
+//     document.documentElement.scrollHeight
+//   );
+// }
+//!  functionals:
+
+function title() {
+  refs.titleEl.style.fontSize = '38px';
+  refs.titleEl.style.marginTop = '38px';
+  refs.titleEl.style.animation = 'none';
 }
-//===================================
+
+function counterFnc(totalHits, counter) {
+  return counter < totalHits;
+}
+
 function clearGallery() {
   refs.gallery.innerHTML = '';
 }
